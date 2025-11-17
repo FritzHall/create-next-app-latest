@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { TdHTMLAttributes, ThHTMLAttributes, ReactNode } from "react";
-
+import AddProductForm from "./AddProductForm";
 type Product = {
   id: number;
   title: string;
@@ -54,6 +54,15 @@ export default function ProductsPage() {
           <p className="text-sm text-gray-500">Table view and card view using FakeStore API</p>
         </div>
       </header>
+      <AddProductForm
+        onSuccess={(created) => {
+      // Add the new product to the top of the existing list
+          setProducts((prev) => [
+            { ...created, rating: { rate: 0, count: 0 } },
+            ...prev,
+          ]);
+        }}
+      />
 
       {/* ===== TABLE VIEW ===== */}
       <section className="space-y-3">
